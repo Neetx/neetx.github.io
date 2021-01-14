@@ -140,8 +140,12 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
-        ("/archive.html", "Archive"),
-        ("/categories/", "Tags"),
+    	("/", "Home"),
+    	("/categories/cat_exploit-development/", "Exploit Development"),
+    	("/categories/cat_reverse-engineering", "Reverse Engineering"),
+    	("/contacts/index.html", "Contacts"),
+    	("/categories", "Categories"),
+        #("/archive.html", "Archive"),
         ("/rss.xml", "RSS feed"),
     ),
 }
@@ -463,10 +467,10 @@ HIDDEN_TAGS = ['mathjax']
 # using a forward slash ('/') to separate paths. Use a backslash ('\') to escape
 # a forward slash or a backslash (i.e. '\//\\' is a path specifying the
 # subcategory called '\' of the top-level category called '/').
-CATEGORY_ALLOW_HIERARCHIES = False
+CATEGORY_ALLOW_HIERARCHIES = True
 # If CATEGORY_OUTPUT_FLAT_HIERARCHY is set to True, the output written to output
 # contains only the name of the leaf category and not the whole path.
-CATEGORY_OUTPUT_FLAT_HIERARCHY = False
+CATEGORY_OUTPUT_FLAT_HIERARCHY = True
 
 # If CATEGORY_PAGES_ARE_INDEXES is set to True, each category's page will contain
 # the posts themselves. If set to False, it will be just a list of links.
@@ -475,20 +479,20 @@ CATEGORY_OUTPUT_FLAT_HIERARCHY = False
 # Set descriptions for category pages to make them more interesting. The
 # default is no description. The value is used in the meta description
 # and displayed underneath the category list or index page’s title.
-# CATEGORY_DESCRIPTIONS = {
-#    DEFAULT_LANG: {
-#        "blogging": "Meta-blog posts about blogging.",
-#        "open source": "My contributions to my many, varied, ever-changing, and eternal libre software projects."
-#    },
-# }
+CATEGORY_DESCRIPTIONS = {
+   DEFAULT_LANG: {
+       "Exploit Development": "In this section I will post my experiments in the exploit development field.",
+       "Reverse Engineering": "In this section I will post my experiments in the reverse engineering field."
+   },
+}
 
 # Set special titles for category pages. The default is "Posts about CATEGORY".
-# CATEGORY_TITLES = {
-#    DEFAULT_LANG: {
-#        "blogging": "Meta-posts about blogging",
-#        "open source": "Posts about open source software"
-#    },
-# }
+CATEGORY_TITLES = {
+   DEFAULT_LANG: {
+       "Exploit Development": "Exploit Development",
+       "Reverse Engineering": "Reverse Engineering"
+   },
+}
 
 # If you do not want to display a category publicly, you can mark it as hidden.
 # The category will not be displayed on the category list page.
