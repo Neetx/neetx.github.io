@@ -7,26 +7,50 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://neetx.github.io/</loc>
-  <lastmod>2021-01-14T21:27:00Z</lastmod>
+  <lastmod>2021-01-14T22:50:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/2021/</loc>
+  <lastmod>2021-01-14T22:50:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/archive.html</loc>
-  <lastmod>2021-01-14T21:47:00Z</lastmod>
+  <lastmod>2021-01-14T23:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/</loc>
-  <lastmod>2021-01-14T20:10:00Z</lastmod>
+  <lastmod>2021-01-14T22:54:00Z</lastmod>
  </url>
  <url>
-  <loc>https://neetx.github.io/galleries/</loc>
-  <lastmod>2021-01-14T20:10:00Z</lastmod>
+  <loc>https://neetx.github.io/categories/cat_exploit-development/</loc>
+  <lastmod>2021-01-14T23:28:00Z</lastmod>
  </url>
  <url>
-  <loc>https://neetx.github.io/listings/</loc>
-  <lastmod>2021-01-14T20:10:00Z</lastmod>
+  <loc>https://neetx.github.io/categories/cat_reverse-engineering/</loc>
+  <lastmod>2021-01-14T23:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/contacts/</loc>
+  <lastmod>2021-01-14T22:32:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/posts/</loc>
-  <lastmod>2021-01-14T21:13:00Z</lastmod>
+  <lastmod>2021-01-14T23:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/posts/exploit_dev_init/</loc>
+  <lastmod>2021-01-14T23:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/posts/reverse_engineering_init/</loc>
+  <lastmod>2021-01-14T23:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/posts/test_re/</loc>
+  <lastmod>2021-01-14T22:53:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/posts/testpost/</loc>
+  <lastmod>2021-01-14T22:50:00Z</lastmod>
  </url>
 </urlset>
