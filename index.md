@@ -18,4 +18,3 @@ I'm a computer security student with the passion for topics like exploit dev, re
 This website will be a collection of my works and experiments.<br><br>
 
 This site will be updated soon.
-
