@@ -11,6 +11,10 @@
 
 Email   : [neetx](neetx@protonmail.com)
 
+Mastodon: [neetx mastodon](https://mastodon.xyz/web/accounts/281344)
+
+Mastodon: [neetx privacytools](https://social.privacytools.io/web/accounts/8180)
+
 Github  : [Neetx](https://github.com/Neetx/)
 
 Twitter : [@TonioPasto](https://twitter.com/TonioPasto) 
