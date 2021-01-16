@@ -2,7 +2,7 @@
 .. title: Executable and Linkable Format (ELF)
 .. slug: executable-and-linkable-format-elf
 .. date: 2021-01-16 16:29:26 UTC+01:00
-.. tags: #reverse #security #malware #linux #elf
+.. tags: #reverse,#security,#malware,#linux,#elf
 .. category: Reverse Engineering
 .. link: 
 .. description: 

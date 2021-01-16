@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://neetx.github.io/archive.html</loc>
-  <lastmod>2021-01-16T15:49:00Z</lastmod>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/</loc>
-  <lastmod>2021-01-16T15:31:00Z</lastmod>
+  <lastmod>2021-01-16T20:32:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/cat_exploit-development/</loc>
@@ -30,8 +30,24 @@
   <lastmod>2021-01-14T23:28:00Z</lastmod>
  </url>
  <url>
-  <loc>https://neetx.github.io/categories/reverse-security-malware-linux-elf/</loc>
-  <lastmod>2021-01-16T15:31:00Z</lastmod>
+  <loc>https://neetx.github.io/categories/elf/</loc>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/categories/linux/</loc>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/categories/malware/</loc>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/categories/reverse/</loc>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/categories/security/</loc>
+  <lastmod>2021-01-16T20:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/contacts/</loc>
