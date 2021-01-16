@@ -38,6 +38,4 @@ ______________________________________________________________
 
 - April 2019: Bachelor's degree in computer science (University of Bari "Aldo Moro")<br>Thesis title: "Secure communication protocol for CPS"
 
-<div align="center">
-<video src="https://dms.licdn.com/playback/C4D05AQFp62tPOXoxCw/43a9259daf6641e9b98374ecb24358e7/feedshare-mp4_3300-captions-thumbnails/1507940147251-drlcss?e=1610888400&amp;v=beta&amp;t=j0Dqt-su3b-SZqtTJEUv5vIWSy01bRaQjnEE51X6GAA" width="800" height="640" controls frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></video>
-</div>
+<video src="https://dms.licdn.com/playback/C4D05AQFp62tPOXoxCw/43a9259daf6641e9b98374ecb24358e7/feedshare-mp4_3300-captions-thumbnails/1507940147251-drlcss?e=1610888400&amp;v=beta&amp;t=j0Dqt-su3b-SZqtTJEUv5vIWSy01bRaQjnEE51X6GAA" class="center"  controls frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></video>
