@@ -1,2 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sat, 16 Jan 2021 11:42:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>reverse_engineering_init</title><link>https://neetx.github.io/posts/reverse_engineering_init/</link><dc:creator>Neetx</dc:creator><description>&lt;p&gt;Category initialization&lt;/p&gt;</description><guid>https://neetx.github.io/posts/reverse_engineering_init/</guid><pubDate>Thu, 14 Jan 2021 23:28:14 GMT</pubDate></item><item><title>exploit_dev_init</title><link>https://neetx.github.io/posts/exploit_dev_init/</link><dc:creator>Neetx</dc:creator><description>&lt;p&gt;Category initialization&lt;/p&gt;</description><guid>https://neetx.github.io/posts/exploit_dev_init/</guid><pubDate>Thu, 14 Jan 2021 23:27:36 GMT</pubDate></item></channel></rss>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sat, 16 Jan 2021 15:31:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Executable and Linkable Format (ELF)</title><link>https://neetx.github.io/posts/executable-and-linkable-format-elf/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;h2&gt;Headers, sections and segments&lt;/h2&gt;
+&lt;p&gt;ELF is a file format for executables file, Linux uses ELF files.&lt;/p&gt;
+&lt;p&gt;The components are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ELF Header&lt;/li&gt;
+&lt;li&gt;Sections&lt;/li&gt;
+&lt;li&gt;Segments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3&gt;ELF Header&lt;/h3&gt;
+&lt;p&gt;The ELF header is described by the type Elf32_Ehdr or Elf64_Ehdr, it 
+information about the binary.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="cm"&gt;/* The ELF file header.  This appears at the start of every ELF file.  */&lt;/span&gt;
+&lt;span class="cp"&gt;#define EI_NIDENT (16)&lt;/span&gt;
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;  &lt;span class="n"&gt;e_ident&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;EI_NIDENT&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;  &lt;span class="cm"&gt;/* Magic number and other info    */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="cm"&gt;/* Object file type                */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_machine&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* Architecture                     */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;     &lt;span class="n"&gt;e_version&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* Object file version              */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Addr&lt;/span&gt;     &lt;span class="n"&gt;e_entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Entry point virtual address      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Off&lt;/span&gt;      &lt;span class="n"&gt;e_phoff&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Program header table file offset */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Off&lt;/span&gt;      &lt;span class="n"&gt;e_shoff&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Section header table file offset */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;     &lt;span class="n"&gt;e_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Processor-specific flags         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_ehsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* ELF header size in bytes         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_phentsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="cm"&gt;/* Program header table entry size  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_phnum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Program header table entry count */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_shentsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="cm"&gt;/* Section header table entry size  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_shnum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Section header table entry count */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Half&lt;/span&gt;     &lt;span class="n"&gt;e_shstrndx&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="cm"&gt;/* Section header string table index*/&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf32_Ehdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;   &lt;span class="n"&gt;e_ident&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;EI_NIDENT&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;  &lt;span class="cm"&gt;/* Magic number and other info   */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;             &lt;span class="cm"&gt;/* Object file type               */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_machine&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="cm"&gt;/* Architecture                     */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;      &lt;span class="n"&gt;e_version&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="cm"&gt;/* Object file version              */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Addr&lt;/span&gt;      &lt;span class="n"&gt;e_entry&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Entry point virtual address      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Off&lt;/span&gt;       &lt;span class="n"&gt;e_phoff&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Program header table file offset */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Off&lt;/span&gt;       &lt;span class="n"&gt;e_shoff&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Section header table file offset */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;      &lt;span class="n"&gt;e_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Processor-specific flags         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_ehsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* ELF header size in bytes         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_phentsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="cm"&gt;/* Program header table entry size  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_phnum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Program header table entry count */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_shentsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;      &lt;span class="cm"&gt;/* Section header table entry size  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_shnum&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Section header table entry count */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Half&lt;/span&gt;      &lt;span class="n"&gt;e_shstrndx&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;       &lt;span class="cm"&gt;/* Section header string table index*/&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf64_Ehdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;e_ident[EI_NIDENT]&lt;/strong&gt; is a 16 bytes array that contains identification flags
+about the file, these flags are used to interpret and decode the file
+Flags:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;EI_MAG0-3    : ELF magic number&lt;/li&gt;
+&lt;li&gt;EI_CLASS     : File class.&lt;/li&gt;
+&lt;li&gt;EI_DATA      : File’s data encoding.&lt;/li&gt;
+&lt;li&gt;EI_VERSION   : File’s version.&lt;/li&gt;
+&lt;li&gt;EI_OSABI     : OS/ABI identification.&lt;/li&gt;
+&lt;li&gt;EI_ABIVERSION: ABI version&lt;/li&gt;
+&lt;li&gt;EI_PAD       : Start of padding bytes.&lt;/li&gt;
+&lt;li&gt;EI_NIDENT    : Size of ei_ident.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Command to get elf header&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;readelf -h elf_name
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;Sections&lt;/h3&gt;
+&lt;p&gt;Sections contains all the information for linking (link-time and not at
+runtime).
+There is a Section Header Table, an array of structures Elf64_Shdr (and
+Elf32_Shdr for i386 ABI), there is an array entry for each section.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="cm"&gt;/* Section header.  */&lt;/span&gt;
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;        &lt;span class="cm"&gt;/* Section name (string tbl index)      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section type                         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="cm"&gt;/* Section flags                        */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Addr&lt;/span&gt;    &lt;span class="n"&gt;sh_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section virtual addr at execution    */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Off&lt;/span&gt; &lt;span class="n"&gt;sh_offset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="cm"&gt;/* Section file offset                  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section size in bytes                */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_link&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Link to another section              */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_info&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Additional section information       */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_addralign&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="cm"&gt;/* Section alignment                    */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_entsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* Entry size if section holds table    */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf32_Shdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section name (string tbl index)      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section type                         */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;   &lt;span class="n"&gt;sh_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="cm"&gt;/* Section flags                        */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Addr&lt;/span&gt;    &lt;span class="n"&gt;sh_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section virtual addr at execution    */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Off&lt;/span&gt; &lt;span class="n"&gt;sh_offset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="cm"&gt;/* Section file offset                  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;   &lt;span class="n"&gt;sh_size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Section size in bytes                */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_link&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Link to another section              */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;    &lt;span class="n"&gt;sh_info&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;    &lt;span class="cm"&gt;/* Additional section information       */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;   &lt;span class="n"&gt;sh_addralign&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;   &lt;span class="cm"&gt;/* Section alignment                    */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;   &lt;span class="n"&gt;sh_entsize&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="cm"&gt;/* Entry size if section holds table    */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf64_Shdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Some sections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.text   : code.&lt;/li&gt;
+&lt;li&gt;.data   : initialised data.&lt;/li&gt;
+&lt;li&gt;.rodata : initialised read-only data.&lt;/li&gt;
+&lt;li&gt;.bss    : uninitialized data.&lt;/li&gt;
+&lt;li&gt;.plt    : PLT (Procedure Linkage Table) (IAT equivalent).&lt;/li&gt;
+&lt;li&gt;.got    : GOT entries dedicated to dynamically linked global variables.&lt;/li&gt;
+&lt;li&gt;.got.plt: GOT entries dedicated to dynamically linked functions.&lt;/li&gt;
+&lt;li&gt;.symtab : global symbol table.&lt;/li&gt;
+&lt;li&gt;.dynamic: Holds all needed information for dynamic linking.&lt;/li&gt;
+&lt;li&gt;.dynsym : symbol tables dedicated to dynamically linked symbols.&lt;/li&gt;
+&lt;li&gt;.strtab : string table of .symtab section.&lt;/li&gt;
+&lt;li&gt;.dynstr : string table of .dynsym section.&lt;/li&gt;
+&lt;li&gt;.interp : RTLD embedded string.&lt;/li&gt;
+&lt;li&gt;.rel.dyn: global variable relocation table.&lt;/li&gt;
+&lt;li&gt;.rel.plt: function relocation table.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Command to get section headers&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;readelf -S elf_name
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;Segments&lt;/h3&gt;
+&lt;p&gt;Also called Programm Headers, segments split the binary into chunks, they
+aren't useful at linktime.
+There is a Program Header Table, an array of Elf64_Phdr (or Elf32_Phdr for
+i386 ABI), there is an array entry for each segment.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="cm"&gt;/* Program segment header.  */&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;        &lt;span class="n"&gt;p_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                 &lt;span class="cm"&gt;/* Segment type             */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Off&lt;/span&gt;         &lt;span class="n"&gt;p_offset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;               &lt;span class="cm"&gt;/* Segment file offset      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Addr&lt;/span&gt;        &lt;span class="n"&gt;p_vaddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment virtual address  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Addr&lt;/span&gt;        &lt;span class="n"&gt;p_paddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment physical address */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;        &lt;span class="n"&gt;p_filesz&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;               &lt;span class="cm"&gt;/* Segment size in file     */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;        &lt;span class="n"&gt;p_memsz&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment size in memory   */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;        &lt;span class="n"&gt;p_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment flags            */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;        &lt;span class="n"&gt;p_align&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment alignment        */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf32_Phdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;        &lt;span class="n"&gt;p_type&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                 &lt;span class="cm"&gt;/* Segment type             */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;        &lt;span class="n"&gt;p_flags&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment flags            */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Off&lt;/span&gt;         &lt;span class="n"&gt;p_offset&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;               &lt;span class="cm"&gt;/* Segment file offset      */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Addr&lt;/span&gt;        &lt;span class="n"&gt;p_vaddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment virtual address  */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Addr&lt;/span&gt;        &lt;span class="n"&gt;p_paddr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment physical address */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;       &lt;span class="n"&gt;p_filesz&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;               &lt;span class="cm"&gt;/* Segment size in file     */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;       &lt;span class="n"&gt;p_memsz&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment size in memory   */&lt;/span&gt;
+  &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;       &lt;span class="n"&gt;p_align&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;                &lt;span class="cm"&gt;/* Segment alignment        */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf64_Phdr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;p_type&lt;/strong&gt; common values are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PT_NULL   : unassigned segment (first entry of Program Header Table)&lt;/li&gt;
+&lt;li&gt;PT_LOAD   : Loadable segment&lt;/li&gt;
+&lt;li&gt;PT_INTERP : Segment holding .interp section&lt;/li&gt;
+&lt;li&gt;PT_TLS    : Thread Local Storage segment (Common in static binaries)&lt;/li&gt;
+&lt;li&gt;PT_DYNAMIC: Holding .dynamic section&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;important&lt;/strong&gt;: Only PT_LOAD segments will be loaded in memory, the others
+are mapped in the memory range of one of the loaded segments.&lt;/p&gt;
+&lt;p&gt;Command to get segment/program header:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;readelf -I elf_name
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;p&gt;So sections contain information about linking and Program Headers split
+binary into segments.&lt;/p&gt;
+&lt;p&gt;Segments have offsets and virtual addresses that must be congruent modulo
+the sytem page size, and p_align must be a multiple of the system page
+size.&lt;/p&gt;
+&lt;p&gt;With this alignment the segment mapping can't overlap in a single memory
+page. A problem for the overlap are different access attributes, these 
+cannot be forced if two segments are mapped in the same memory page.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References:
+&lt;a href="https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/"&gt;intezer&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>#reverse #security #malware #linux #elf</category><guid>https://neetx.github.io/posts/executable-and-linkable-format-elf/</guid><pubDate>Sat, 16 Jan 2021 15:29:26 GMT</pubDate></item><item><title>reverse_engineering_init</title><link>https://neetx.github.io/posts/reverse_engineering_init/</link><dc:creator>Neetx</dc:creator><description>&lt;p&gt;Category initialization&lt;/p&gt;</description><guid>https://neetx.github.io/posts/reverse_engineering_init/</guid><pubDate>Thu, 14 Jan 2021 23:28:14 GMT</pubDate></item><item><title>exploit_dev_init</title><link>https://neetx.github.io/posts/exploit_dev_init/</link><dc:creator>Neetx</dc:creator><description>&lt;p&gt;Category initialization&lt;/p&gt;</description><guid>https://neetx.github.io/posts/exploit_dev_init/</guid><pubDate>Thu, 14 Jan 2021 23:27:36 GMT</pubDate></item></channel></rss>
