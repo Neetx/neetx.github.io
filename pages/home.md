@@ -15,6 +15,4 @@ neetx
 Hello guys!
 
 I'm a computer security student with the passion for topics like exploit dev, reverse engineering and malware dev.<br>
-This website will be a collection of my works and experiments.<br><br>
-
-This site will be updated soon.
+This website will be a collection of my works and experiments.
