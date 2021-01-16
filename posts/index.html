@@ -132,29 +132,29 @@ Elf32_Shdr for i386 ABI), there is an array entry for each section.</p>
 <span class="k">typedef</span> <span class="k">struct</span>
 <span class="p">{</span>
   <span class="n">Elf32_Word</span>    <span class="n">sh_name</span><span class="p">;</span>        <span class="cm">/* Section name (string tbl index)      */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_type</span><span class="p">;</span>    <span class="cm">/* Section type                         */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_flags</span><span class="p">;</span>   <span class="cm">/* Section flags                        */</span>
-  <span class="n">Elf32_Addr</span>    <span class="n">sh_addr</span><span class="p">;</span>    <span class="cm">/* Section virtual addr at execution    */</span>
-  <span class="n">Elf32_Off</span> <span class="n">sh_offset</span><span class="p">;</span>  <span class="cm">/* Section file offset                  */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_size</span><span class="p">;</span>    <span class="cm">/* Section size in bytes                */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_link</span><span class="p">;</span>    <span class="cm">/* Link to another section              */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_info</span><span class="p">;</span>    <span class="cm">/* Additional section information       */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_type</span><span class="p">;</span>        <span class="cm">/* Section type                         */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_flags</span><span class="p">;</span>       <span class="cm">/* Section flags                        */</span>
+  <span class="n">Elf32_Addr</span>    <span class="n">sh_addr</span><span class="p">;</span>        <span class="cm">/* Section virtual addr at execution    */</span>
+  <span class="n">Elf32_Off</span>     <span class="n">sh_offset</span><span class="p">;</span>      <span class="cm">/* Section file offset                  */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_size</span><span class="p">;</span>        <span class="cm">/* Section size in bytes                */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_link</span><span class="p">;</span>        <span class="cm">/* Link to another section              */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_info</span><span class="p">;</span>        <span class="cm">/* Additional section information       */</span>
   <span class="n">Elf32_Word</span>    <span class="n">sh_addralign</span><span class="p">;</span>   <span class="cm">/* Section alignment                    */</span>
-  <span class="n">Elf32_Word</span>    <span class="n">sh_entsize</span><span class="p">;</span> <span class="cm">/* Entry size if section holds table    */</span>
+  <span class="n">Elf32_Word</span>    <span class="n">sh_entsize</span><span class="p">;</span>     <span class="cm">/* Entry size if section holds table    */</span>
 <span class="p">}</span> <span class="n">Elf32_Shdr</span><span class="p">;</span>
 
 <span class="k">typedef</span> <span class="k">struct</span>
 <span class="p">{</span>
-  <span class="n">Elf64_Word</span>    <span class="n">sh_name</span><span class="p">;</span>    <span class="cm">/* Section name (string tbl index)      */</span>
-  <span class="n">Elf64_Word</span>    <span class="n">sh_type</span><span class="p">;</span>    <span class="cm">/* Section type                         */</span>
-  <span class="n">Elf64_Xword</span>   <span class="n">sh_flags</span><span class="p">;</span>   <span class="cm">/* Section flags                        */</span>
-  <span class="n">Elf64_Addr</span>    <span class="n">sh_addr</span><span class="p">;</span>    <span class="cm">/* Section virtual addr at execution    */</span>
-  <span class="n">Elf64_Off</span> <span class="n">sh_offset</span><span class="p">;</span>  <span class="cm">/* Section file offset                  */</span>
-  <span class="n">Elf64_Xword</span>   <span class="n">sh_size</span><span class="p">;</span>    <span class="cm">/* Section size in bytes                */</span>
-  <span class="n">Elf64_Word</span>    <span class="n">sh_link</span><span class="p">;</span>    <span class="cm">/* Link to another section              */</span>
-  <span class="n">Elf64_Word</span>    <span class="n">sh_info</span><span class="p">;</span>    <span class="cm">/* Additional section information       */</span>
+  <span class="n">Elf64_Word</span>    <span class="n">sh_name</span><span class="p">;</span>        <span class="cm">/* Section name (string tbl index)      */</span>
+  <span class="n">Elf64_Word</span>    <span class="n">sh_type</span><span class="p">;</span>        <span class="cm">/* Section type                         */</span>
+  <span class="n">Elf64_Xword</span>   <span class="n">sh_flags</span><span class="p">;</span>       <span class="cm">/* Section flags                        */</span>
+  <span class="n">Elf64_Addr</span>    <span class="n">sh_addr</span><span class="p">;</span>        <span class="cm">/* Section virtual addr at execution    */</span>
+  <span class="n">Elf64_Off</span>     <span class="n">sh_offset</span><span class="p">;</span>      <span class="cm">/* Section file offset                  */</span>
+  <span class="n">Elf64_Xword</span>   <span class="n">sh_size</span><span class="p">;</span>        <span class="cm">/* Section size in bytes                */</span>
+  <span class="n">Elf64_Word</span>    <span class="n">sh_link</span><span class="p">;</span>        <span class="cm">/* Link to another section              */</span>
+  <span class="n">Elf64_Word</span>    <span class="n">sh_info</span><span class="p">;</span>        <span class="cm">/* Additional section information       */</span>
   <span class="n">Elf64_Xword</span>   <span class="n">sh_addralign</span><span class="p">;</span>   <span class="cm">/* Section alignment                    */</span>
-  <span class="n">Elf64_Xword</span>   <span class="n">sh_entsize</span><span class="p">;</span> <span class="cm">/* Entry size if section holds table    */</span>
+  <span class="n">Elf64_Xword</span>   <span class="n">sh_entsize</span><span class="p">;</span>     <span class="cm">/* Entry size if section holds table    */</span>
 <span class="p">}</span> <span class="n">Elf64_Shdr</span><span class="p">;</span>
 </pre>
 <p>Some sections:</p>
