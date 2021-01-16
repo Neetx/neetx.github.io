@@ -45,6 +45,11 @@ body {
 	font-size: 20px;
 	line-height: 1.4;
 	padding: 1em 2em 0 02em;
+	max-width: 1600px;
+}
+
+main{
+	max-width: 1400px;
 }
 
 .center{

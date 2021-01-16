@@ -12,7 +12,7 @@ ${template_hooks['extra_head']()}
 % if not HACK_VARIANT:
     <body class="hack">
 % elif HACK_VARIANT == 'dark':
-    <body class="hack dark">
+    <body class="hack dark center">
 % elif HACK_VARIANT == 'dark-grey':
     <body class="hack dark-grey">
 % elif HACK_VARIANT == 'solarized-dark':
@@ -24,7 +24,7 @@ ${template_hooks['extra_head']()}
 <a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
     <div id="container"> 
          ${header.html_header()}
-         <main id="content">
+         <main id="content" class="center">
             <%block name="content"></%block>
          </main>
          
