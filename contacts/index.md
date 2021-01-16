@@ -9,8 +9,10 @@
 .. type: text
 -->
 
-Email  : [neetx](neetx@protonmail.com)
+Email   : [neetx](neetx@protonmail.com)
 
-Github : [Neetx](https://github.com/Neetx/)
+Github  : [Neetx](https://github.com/Neetx/)
 
-Twitter: [@TonioPasto](https://twitter.com/TonioPasto) 
+Twitter : [@TonioPasto](https://twitter.com/TonioPasto) 
+
+Linkedin: [Antonio Pastorelli](https://www.linkedin.com/in/antonio-pastorelli/)
