@@ -697,6 +697,7 @@ body {
 video{
     max-width: 800px;
     width:100%;
+
 }
 
 .code, .hack, .hack blockquote, .hack code, .hack em, .hack h1, .hack h2, .hack h3, .hack h4, .hack h5, .hack h6, .hack strong
@@ -1087,4 +1088,9 @@ pre.code, code {
 	}
 }
 
+@media only screen and (max-width: 600px) {
+  body {
+      padding: 1em;
+  }
+}
 
