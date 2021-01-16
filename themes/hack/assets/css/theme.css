@@ -26,12 +26,26 @@
 	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+*{
+	box-sizing: border-box;
+}
+
+:root {
+	--footer-height: 70px;
+  }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
 body {
 	color: #4F5151;
 	font-family: 'Share Tech Mono', monospace;
 	font-size: 20px;
 	line-height: 1.4;
-	padding: 1em;
+	padding: 1em 2em 0 02em;
 }
 
 
@@ -42,9 +56,13 @@ body {
 }
 
 #container {
-	margin: 1em auto;
-	max-width: 1600px;
+	margin-top: 1em;
+	/* max-width: 1600px; */
+	min-height: calc(100% - var(--footer-height) - 2em);
 }
+
+
+
 #menu ul,
 #menu ul li,
 .postpromonav .tags,
@@ -113,7 +131,9 @@ body {
 }
 #footer {
 	border-top: 1px solid #4F5151;
-	width: 100%;
+	height: var(--footer-height);
+	position: relative;
+	/* max-width: 1600px; */
 }
 
 /* Tags */
@@ -214,7 +234,7 @@ body {
 :link {
 	color: #1168CC;
 	text-decoration: none;
-    border-bottom: 0px none green
+	border-bottom: 0px none green;
 }
 :visited {
 	color: #6830BB;

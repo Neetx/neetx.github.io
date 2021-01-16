@@ -27,8 +27,9 @@ ${template_hooks['extra_head']()}
          <main id="content">
             <%block name="content"></%block>
          </main>
-         ${footer.html_footer()}
+         
     </div>
+    ${footer.html_footer()}
     ${base.late_load_js()}
     <%block name="extra_js"></%block>
     ${body_end}
