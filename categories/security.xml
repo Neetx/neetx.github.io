@@ -1,7 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website (Posts about #security)</title><link>https://neetx.github.io/</link><description></description><atom:link href="https://neetx.github.io/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sun, 17 Jan 2021 16:15:58 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Executable and Linkable Format (ELF)</title><link>https://neetx.github.io/posts/executable-and-linkable-format-elf/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;h2&gt;Headers, sections and segments&lt;/h2&gt;
-&lt;p&gt;ELF is a file format for executables file, Linux uses ELF files.&lt;/p&gt;
-&lt;p&gt;The components are:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website (Posts about #security)</title><link>https://neetx.github.io/</link><description></description><atom:link href="https://neetx.github.io/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sun, 17 Jan 2021 20:32:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ELF symbols</title><link>https://neetx.github.io/posts/elf-symbols/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;Function and variable names are called symbols, they must be translated 
+into offsets and addresses at compilation time.
+The compiler exports &lt;strong&gt;symbolic information&lt;/strong&gt; into the output object, that
+holds symbols and interfaces to them (local, external).&lt;/p&gt;
+&lt;p&gt;Linkers and debuggers works with symbols accessing the interfaces and the
+Symbol Table.
+Debugging is possible, but harder, without symbols, as in a stripped elf.
+It's possible to remove symbol tables or its entries&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;ELF symbol&lt;/h3&gt;
+&lt;p&gt;In an ELF file there is a Symbol Table (max two) as an array of structures
+called Elf32_Sym or Elf64_Sym&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="cm"&gt;/* Symbol table entry.  */&lt;/span&gt;
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;      &lt;span class="n"&gt;st_name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Symbol name (string tbl index) */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf32_Addr&lt;/span&gt;      &lt;span class="n"&gt;st_value&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* Symbol value                   */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf32_Word&lt;/span&gt;      &lt;span class="n"&gt;st_size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Symbol size                    */&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;   &lt;span class="n"&gt;st_info&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Symbol type and binding        */&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;   &lt;span class="n"&gt;st_other&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* Symbol visibility              */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf32_Section&lt;/span&gt;   &lt;span class="n"&gt;st_shndx&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;         &lt;span class="cm"&gt;/* Section index                  */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf32_Sym&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;typedef&lt;/span&gt; &lt;span class="k"&gt;struct&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Elf64_Word&lt;/span&gt;     &lt;span class="n"&gt;st_name&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Symbol name (string tbl index) */&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;  &lt;span class="n"&gt;st_info&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Symbol type and binding        */&lt;/span&gt;
+    &lt;span class="kt"&gt;unsigned&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt;  &lt;span class="n"&gt;st_other&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Symbol visibility              */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf64_Section&lt;/span&gt;  &lt;span class="n"&gt;st_shndx&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Section index                  */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf64_Addr&lt;/span&gt;     &lt;span class="n"&gt;st_value&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;          &lt;span class="cm"&gt;/* Symbol value                   */&lt;/span&gt;
+    &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;    &lt;span class="n"&gt;st_size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Symbol size                    */&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf64_Sym&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;h4&gt;st_name&lt;/h4&gt;
+&lt;p&gt;If &lt;strong&gt;st_name&lt;/strong&gt; isn't unitialized the the symbol hasn't a name.&lt;/p&gt;
+&lt;h4&gt;st_info&lt;/h4&gt;
+&lt;p&gt;In &lt;strong&gt;st_info&lt;/strong&gt; there are binding attributes (linkage visibility and
+behavior when the symbol is externally referenced)
+Common binding:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;STB_LOCAL : invisible from outside&lt;/li&gt;
+&lt;li&gt;STB_GLOBAL: visible from outside&lt;/li&gt;
+&lt;li&gt;STB_WEAK  : global symbol but it can be redefined&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Common types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;STT_NOTYPE : type not specified&lt;/li&gt;
+&lt;li&gt;STT_OBJECT : symbol is a data object (variable).&lt;/li&gt;
+&lt;li&gt;STT_FUNC   : symbol is a code object (function).&lt;/li&gt;
+&lt;li&gt;STT_SECTION: symbol is a section.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To get these fields a set of bitmasks are used&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ELF64_ST_BIND(info) ((info) &amp;gt;&amp;gt; 4 )&lt;/li&gt;
+&lt;li&gt;ELF64_ST_TYPE(info) ((info) &amp;amp; 0xf)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;st_other&lt;/h4&gt;
+&lt;p&gt;Information about symbol visibility, how a symbol can be accessed after it
+become part of an object:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;STV_DEFAULT  : default visibility, it is equal to symbol’s binding type&lt;/li&gt;
+&lt;li&gt;STV_PROTECTED: it is visible by other objects, but cannot be preempted&lt;/li&gt;
+&lt;li&gt;STV_HIDDEN   : invisible&lt;/li&gt;
+&lt;li&gt;STV_INTERNAL : internal visiblity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Symbol binding&lt;/strong&gt; refers to an external object referencing a symbol at
+linking time
+&lt;strong&gt;Symbol visibility&lt;/strong&gt; refers on the original object and to an external
+object referencing the symbol of interest, at runtime&lt;/p&gt;
+&lt;p&gt;Macro to get visibility information: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ELF64_ST_VISIBLITY(o) ((o) &amp;amp; 0x3)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;st_shndx&lt;/h4&gt;
+&lt;p&gt;Every symbol is associated with a section, &lt;strong&gt;st_shndx&lt;/strong&gt; contains its index
+in the Section Header Table&lt;/p&gt;
+&lt;p&gt;Common section type:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SHT_UNDEF: section is not present in the object. The symbol is imported&lt;/li&gt;
+&lt;li&gt;SHT_PROGBITS: section is defined in current object&lt;/li&gt;
+&lt;li&gt;SHT_SYMTAB, SHT_DYNSYM: Symbol Table (.symtab, .dynsym)&lt;/li&gt;
+&lt;li&gt;SHT_STRTAB, SHT_DYNSTR:  String Table (.strtab, .dynstr)&lt;/li&gt;
+&lt;li&gt;SHT_REL: Relocation Table without explicit addends (.rel.dyn, .rel.plt)&lt;/li&gt;
+&lt;li&gt;SHT_RELA: Relocation Table with explicit addends (.rela.dyn, .rela.plt)&lt;/li&gt;
+&lt;li&gt;SHT_HASH: Hash Table for dynamic symbol resolution (.gnu.hash)&lt;/li&gt;
+&lt;li&gt;SHT_DYNAMIC: section holding Dynamic Linking information (.dynamic)&lt;/li&gt;
+&lt;li&gt;SHT_NOBITS: section takes no space in disk (.bss)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;st_value&lt;/h4&gt;
+&lt;p&gt;Symbol value for an entry&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For ET_REL files this value represents a section offset &lt;/li&gt;
+&lt;li&gt;For ET_EXEC or ET_DYN files this value represents a virtual address
+  If it is equal to 0 and the section pointed by st_shndx has a sh_type
+  equal to SHT_UNDEF, then this symbol is imported (so its value is
+  resolved at runtime by RTLD(ld.so))&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;st_size&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;st_size&lt;/strong&gt; contains symbol's size&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;String Table&lt;/h3&gt;
+&lt;p&gt;In an ELF are commont two Symbol Tables: .symtab and .dynsym.
+The .symtab is the global Symbol Table of the object, it has a Sting Table
+called .strtab (they have the same number of entries).&lt;/p&gt;
+&lt;p&gt;The .dynsym Symbol Table contains symbols for Dynamic Linking, its strings
+are in the .dynstr String Table&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;A &lt;strong&gt;stripped&lt;/strong&gt; binary hasn't .symtab and .strtab, so reversing and
+debugging is harder, but some symbol can be retrieved by the .dynsym
+located at DT_SYMTAB entry in the PT_DYNAMIC segment.&lt;/p&gt;
+&lt;p&gt;Dynamically linked binaries can be stripped but .dynsym and .dynstr cannot
+be removed&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.intezer.com/blog/elf/executable-linkable-format-101-part-2-symbols/"&gt;intezer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>#elf</category><category>#linux</category><category>#malware</category><category>#reverse</category><category>#security</category><guid>https://neetx.github.io/posts/elf-symbols/</guid><pubDate>Sun, 17 Jan 2021 20:26:58 GMT</pubDate></item><item><title>ELF headers, sections and segments</title><link>https://neetx.github.io/posts/ELF-headers-sections-and-segments/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;ELF is a file format for executables file, Linux uses ELF files.
+The name stands for Executable and Linkable Format&lt;/p&gt;
+&lt;p&gt;Its components are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;ELF Header&lt;/li&gt;
 &lt;li&gt;Sections&lt;/li&gt;
@@ -177,4 +293,4 @@ page. A problem for the overlap are different access attributes, these
 cannot be forced if two segments are mapped in the same memory page.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;References:
-&lt;a href="https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/"&gt;intezer&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>#elf</category><category>#linux</category><category>#malware</category><category>#reverse</category><category>#security</category><guid>https://neetx.github.io/posts/executable-and-linkable-format-elf/</guid><pubDate>Sat, 16 Jan 2021 15:29:26 GMT</pubDate></item></channel></rss>
+&lt;a href="https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/"&gt;intezer&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>#elf</category><category>#linux</category><category>#malware</category><category>#reverse</category><category>#security</category><guid>https://neetx.github.io/posts/ELF-headers-sections-and-segments/</guid><pubDate>Sat, 16 Jan 2021 15:29:26 GMT</pubDate></item></channel></rss>

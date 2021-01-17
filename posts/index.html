@@ -43,21 +43,152 @@
     
     
     </ul></nav></header><main id="content" class="center"><div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="executable-and-linkable-format-elf/" class="u-url">Executable and Linkable Format (ELF)</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="elf-symbols/" class="u-url">ELF symbols</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Neetx
             </span></p>
             <p class="dateline">
-            <a href="executable-and-linkable-format-elf/" rel="bookmark">
+            <a href="elf-symbols/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-01-17T21:26:58+01:00" itemprop="datePublished" title="2021-01-17 21:26">2021-01-17 21:26</time></a>
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>Function and variable names are called symbols, they must be translated 
+into offsets and addresses at compilation time.
+The compiler exports <strong>symbolic information</strong> into the output object, that
+holds symbols and interfaces to them (local, external).</p>
+<p>Linkers and debuggers works with symbols accessing the interfaces and the
+Symbol Table.
+Debugging is possible, but harder, without symbols, as in a stripped elf.
+It's possible to remove symbol tables or its entries</p>
+<hr>
+<h3>ELF symbol</h3>
+<p>In an ELF file there is a Symbol Table (max two) as an array of structures
+called Elf32_Sym or Elf64_Sym</p>
+<pre class="code literal-block"><span class="cm">/* Symbol table entry.  */</span>
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">Elf32_Word</span>      <span class="n">st_name</span><span class="p">;</span>          <span class="cm">/* Symbol name (string tbl index) */</span>
+    <span class="n">Elf32_Addr</span>      <span class="n">st_value</span><span class="p">;</span>         <span class="cm">/* Symbol value                   */</span>
+    <span class="n">Elf32_Word</span>      <span class="n">st_size</span><span class="p">;</span>          <span class="cm">/* Symbol size                    */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span>   <span class="n">st_info</span><span class="p">;</span>          <span class="cm">/* Symbol type and binding        */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span>   <span class="n">st_other</span><span class="p">;</span>         <span class="cm">/* Symbol visibility              */</span>
+    <span class="n">Elf32_Section</span>   <span class="n">st_shndx</span><span class="p">;</span>         <span class="cm">/* Section index                  */</span>
+<span class="p">}</span> <span class="n">Elf32_Sym</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="n">Elf64_Word</span>     <span class="n">st_name</span><span class="p">;</span>           <span class="cm">/* Symbol name (string tbl index) */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span>  <span class="n">st_info</span><span class="p">;</span>           <span class="cm">/* Symbol type and binding        */</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span>  <span class="n">st_other</span><span class="p">;</span>          <span class="cm">/* Symbol visibility              */</span>
+    <span class="n">Elf64_Section</span>  <span class="n">st_shndx</span><span class="p">;</span>          <span class="cm">/* Section index                  */</span>
+    <span class="n">Elf64_Addr</span>     <span class="n">st_value</span><span class="p">;</span>          <span class="cm">/* Symbol value                   */</span>
+    <span class="n">Elf64_Xword</span>    <span class="n">st_size</span><span class="p">;</span>           <span class="cm">/* Symbol size                    */</span>
+<span class="p">}</span> <span class="n">Elf64_Sym</span><span class="p">;</span>
+</pre>
+<h4>st_name</h4>
+<p>If <strong>st_name</strong> isn't unitialized the the symbol hasn't a name.</p>
+<h4>st_info</h4>
+<p>In <strong>st_info</strong> there are binding attributes (linkage visibility and
+behavior when the symbol is externally referenced)
+Common binding:</p>
+<ul>
+<li>STB_LOCAL : invisible from outside</li>
+<li>STB_GLOBAL: visible from outside</li>
+<li>STB_WEAK  : global symbol but it can be redefined</li>
+</ul>
+<p>Common types:</p>
+<ul>
+<li>STT_NOTYPE : type not specified</li>
+<li>STT_OBJECT : symbol is a data object (variable).</li>
+<li>STT_FUNC   : symbol is a code object (function).</li>
+<li>STT_SECTION: symbol is a section.</li>
+</ul>
+<p>To get these fields a set of bitmasks are used</p>
+<ul>
+<li>ELF64_ST_BIND(info) ((info) &gt;&gt; 4 )</li>
+<li>ELF64_ST_TYPE(info) ((info) &amp; 0xf)</li>
+</ul>
+<h4>st_other</h4>
+<p>Information about symbol visibility, how a symbol can be accessed after it
+become part of an object:</p>
+<ul>
+<li>STV_DEFAULT  : default visibility, it is equal to symbol’s binding type</li>
+<li>STV_PROTECTED: it is visible by other objects, but cannot be preempted</li>
+<li>STV_HIDDEN   : invisible</li>
+<li>STV_INTERNAL : internal visiblity</li>
+</ul>
+<p><strong>Symbol binding</strong> refers to an external object referencing a symbol at
+linking time
+<strong>Symbol visibility</strong> refers on the original object and to an external
+object referencing the symbol of interest, at runtime</p>
+<p>Macro to get visibility information: </p>
+<ul>
+<li>ELF64_ST_VISIBLITY(o) ((o) &amp; 0x3)</li>
+</ul>
+<h4>st_shndx</h4>
+<p>Every symbol is associated with a section, <strong>st_shndx</strong> contains its index
+in the Section Header Table</p>
+<p>Common section type:</p>
+<ul>
+<li>SHT_UNDEF: section is not present in the object. The symbol is imported</li>
+<li>SHT_PROGBITS: section is defined in current object</li>
+<li>SHT_SYMTAB, SHT_DYNSYM: Symbol Table (.symtab, .dynsym)</li>
+<li>SHT_STRTAB, SHT_DYNSTR:  String Table (.strtab, .dynstr)</li>
+<li>SHT_REL: Relocation Table without explicit addends (.rel.dyn, .rel.plt)</li>
+<li>SHT_RELA: Relocation Table with explicit addends (.rela.dyn, .rela.plt)</li>
+<li>SHT_HASH: Hash Table for dynamic symbol resolution (.gnu.hash)</li>
+<li>SHT_DYNAMIC: section holding Dynamic Linking information (.dynamic)</li>
+<li>SHT_NOBITS: section takes no space in disk (.bss)</li>
+</ul>
+<h4>st_value</h4>
+<p>Symbol value for an entry</p>
+<ul>
+<li>For ET_REL files this value represents a section offset </li>
+<li>For ET_EXEC or ET_DYN files this value represents a virtual address
+  If it is equal to 0 and the section pointed by st_shndx has a sh_type
+  equal to SHT_UNDEF, then this symbol is imported (so its value is
+  resolved at runtime by RTLD(ld.so))</li>
+</ul>
+<h4>st_size</h4>
+<p><strong>st_size</strong> contains symbol's size</p>
+<hr>
+<h3>String Table</h3>
+<p>In an ELF are commont two Symbol Tables: .symtab and .dynsym.
+The .symtab is the global Symbol Table of the object, it has a Sting Table
+called .strtab (they have the same number of entries).</p>
+<p>The .dynsym Symbol Table contains symbols for Dynamic Linking, its strings
+are in the .dynstr String Table</p>
+<hr>
+<p>A <strong>stripped</strong> binary hasn't .symtab and .strtab, so reversing and
+debugging is harder, but some symbol can be retrieved by the .dynsym
+located at DT_SYMTAB entry in the PT_DYNAMIC segment.</p>
+<p>Dynamically linked binaries can be stripped but .dynsym and .dynstr cannot
+be removed</p>
+<hr>
+<p>References:</p>
+<ul>
+<li><a href="https://www.intezer.com/blog/elf/executable-linkable-format-101-part-2-symbols/">intezer</a></li>
+</ul>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="ELF-headers-sections-and-segments/" class="u-url">ELF headers, sections and segments</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Neetx
+            </span></p>
+            <p class="dateline">
+            <a href="ELF-headers-sections-and-segments/" rel="bookmark">
             <time class="published dt-published" datetime="2021-01-16T16:29:26+01:00" itemprop="datePublished" title="2021-01-16 16:29">2021-01-16 16:29</time></a>
             </p>
         </div>
     </header><div class="e-content entry-content">
     <div>
-<h2>Headers, sections and segments</h2>
-<p>ELF is a file format for executables file, Linux uses ELF files.</p>
-<p>The components are:</p>
+<p>ELF is a file format for executables file, Linux uses ELF files.
+The name stands for Executable and Linkable Format</p>
+<p>Its components are:</p>
 <ul>
 <li>ELF Header</li>
 <li>Sections</li>
@@ -235,19 +366,6 @@ cannot be forced if two segments are mapped in the same memory page.</p>
 <p>References:
 <a href="https://www.intezer.com/blog/research/executable-linkable-format-101-part1-sections-segments/">intezer</a></p>
 </div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="reverse_engineering_init/" class="u-url">reverse_engineering_init</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Neetx
-            </span></p>
-            <p class="dateline">
-            <a href="reverse_engineering_init/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-01-15T00:28:14+01:00" itemprop="datePublished" title="2021-01-15 00:28">2021-01-15 00:28</time></a>
-            </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>Category initialization</p>
     </div>
     </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="exploit_dev_init/" class="u-url">exploit_dev_init</a></h1>
         <div class="metadata">

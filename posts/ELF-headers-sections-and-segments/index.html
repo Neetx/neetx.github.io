@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<title>Executable and Linkable Format (ELF) | Neetx website</title>
+<title>ELF headers, sections and segments | Neetx website</title>
 <link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
 <link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
 <link href="../../assets/css/dark.css" rel="stylesheet" type="text/css">
@@ -12,17 +12,18 @@
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
-<link rel="canonical" href="https://neetx.github.io/posts/executable-and-linkable-format-elf/">
+<link rel="canonical" href="https://neetx.github.io/posts/ELF-headers-sections-and-segments/">
 <link rel="icon" href="../../favicon.ico" sizes="16x16">
 <link rel="icon" href="../../favicon.jpeg" sizes="128x128">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Neetx">
-<link rel="prev" href="../reverse_engineering_init/" title="reverse_engineering_init" type="text/html">
+<link rel="prev" href="../exploit_dev_init/" title="exploit_dev_init" type="text/html">
+<link rel="next" href="../elf-symbols/" title="ELF symbols" type="text/html">
 <meta property="og:site_name" content="Neetx website">
-<meta property="og:title" content="Executable and Linkable Format (ELF)">
-<meta property="og:url" content="https://neetx.github.io/posts/executable-and-linkable-format-elf/">
-<meta property="og:description" content="Headers, sections and segments
-ELF is a file format for executables file, Linux uses ELF files.
-The components are:
+<meta property="og:title" content="ELF headers, sections and segments">
+<meta property="og:url" content="https://neetx.github.io/posts/ELF-headers-sections-and-segments/">
+<meta property="og:description" content="ELF is a file format for executables file, Linux uses ELF files.
+The name stands for Executable and Linkable Format
+Its components are:
 
 ELF Header
 Sections
@@ -30,7 +31,7 @@ Segments
 
 
 ELF Header
-The ELF header is described by the type E">
+The ELF header is des">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2021-01-16T16:29:26+01:00">
 <meta property="article:tag" content="#elf">
@@ -63,7 +64,7 @@ The ELF header is described by the type E">
 
     
     
-    </ul></nav></header><main id="content" class="center"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Executable and Linkable Format (ELF)</a></h1>
+    </ul></nav></header><main id="content" class="center"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">ELF headers, sections and segments</a></h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -81,9 +82,9 @@ The ELF header is described by the type E">
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<h2>Headers, sections and segments</h2>
-<p>ELF is a file format for executables file, Linux uses ELF files.</p>
-<p>The components are:</p>
+<p>ELF is a file format for executables file, Linux uses ELF files.
+The name stands for Executable and Linkable Format</p>
+<p>Its components are:</p>
 <ul>
 <li>ELF Header</li>
 <li>Sections</li>
@@ -271,7 +272,10 @@ cannot be forced if two segments are mapped in the same memory page.</p>
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
-                <a href="../reverse_engineering_init/" rel="prev" title="reverse_engineering_init">Previous post</a>
+                <a href="../exploit_dev_init/" rel="prev" title="exploit_dev_init">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../elf-symbols/" rel="next" title="ELF symbols">Next post</a>
             </li>
         </ul></nav></aside></article></main>
 </div>

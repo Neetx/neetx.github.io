@@ -1,6 +1,6 @@
 <!--
-.. title: Executable and Linkable Format (ELF)
-.. slug: executable-and-linkable-format-elf
+.. title: ELF headers, sections and segments
+.. slug: ELF-headers-sections-and-segments
 .. date: 2021-01-16 16:29:26 UTC+01:00
 .. tags: #reverse,#security,#malware,#linux,#elf
 .. category: Reverse Engineering
@@ -9,11 +9,11 @@
 .. type: text
 -->
 
-# Headers, sections and segments
 
 ELF is a file format for executables file, Linux uses ELF files.
+The name stands for Executable and Linkable Format
 
-The components are:
+Its components are:
 
 - ELF Header
 - Sections
