@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sun, 17 Jan 2021 20:32:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ELF symbols</title><link>https://neetx.github.io/posts/elf-symbols/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;Function and variable names are called symbols, they must be translated 
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Sun, 17 Jan 2021 20:40:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ELF symbols</title><link>https://neetx.github.io/posts/ELF-symbols/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;Function and variable names are called symbols, they must be translated 
 into offsets and addresses at compilation time.
 The compiler exports &lt;strong&gt;symbolic information&lt;/strong&gt; into the output object, that
 holds symbols and interfaces to them (local, external).&lt;/p&gt;
@@ -32,6 +32,7 @@ called Elf32_Sym or Elf64_Sym&lt;/p&gt;
     &lt;span class="n"&gt;Elf64_Xword&lt;/span&gt;    &lt;span class="n"&gt;st_size&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;           &lt;span class="cm"&gt;/* Symbol size                    */&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;Elf64_Sym&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;
+&lt;hr&gt;
 &lt;h4&gt;st_name&lt;/h4&gt;
 &lt;p&gt;If &lt;strong&gt;st_name&lt;/strong&gt; isn't unitialized the the symbol hasn't a name.&lt;/p&gt;
 &lt;h4&gt;st_info&lt;/h4&gt;
@@ -115,7 +116,7 @@ be removed&lt;/p&gt;
 &lt;p&gt;References:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.intezer.com/blog/elf/executable-linkable-format-101-part-2-symbols/"&gt;intezer&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/div&gt;</description><category>#elf</category><category>#linux</category><category>#malware</category><category>#reverse</category><category>#security</category><guid>https://neetx.github.io/posts/elf-symbols/</guid><pubDate>Sun, 17 Jan 2021 20:26:58 GMT</pubDate></item><item><title>ELF headers, sections and segments</title><link>https://neetx.github.io/posts/ELF-headers-sections-and-segments/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;ELF is a file format for executables file, Linux uses ELF files.
+&lt;/ul&gt;&lt;/div&gt;</description><category>#elf</category><category>#linux</category><category>#malware</category><category>#reverse</category><category>#security</category><guid>https://neetx.github.io/posts/ELF-symbols/</guid><pubDate>Sun, 17 Jan 2021 20:26:58 GMT</pubDate></item><item><title>ELF headers, sections and segments</title><link>https://neetx.github.io/posts/ELF-headers-sections-and-segments/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;ELF is a file format for executables file, Linux uses ELF files.
 The name stands for Executable and Linkable Format&lt;/p&gt;
 &lt;p&gt;Its components are:&lt;/p&gt;
 &lt;ul&gt;

@@ -1,6 +1,6 @@
 <!--
 .. title: ELF symbols
-.. slug: elf-symbols
+.. slug: ELF-symbols
 .. date: 2021-01-17 21:26:58 UTC+01:00
 .. tags: #elf, #linux, #reverse, #malware, #security
 .. category: Reverse Engineering
@@ -48,6 +48,8 @@ typedef struct
     Elf64_Xword    st_size;           /* Symbol size                    */
 } Elf64_Sym;
 ```
+
+__________________________________________________________________________
 
 ### st_name
 

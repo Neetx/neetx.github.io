@@ -12,14 +12,14 @@
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
-<link rel="canonical" href="https://neetx.github.io/posts/elf-symbols/">
+<link rel="canonical" href="https://neetx.github.io/posts/ELF-symbols/">
 <link rel="icon" href="../../favicon.ico" sizes="16x16">
 <link rel="icon" href="../../favicon.jpeg" sizes="128x128">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Neetx">
 <link rel="prev" href="../ELF-headers-sections-and-segments/" title="ELF headers, sections and segments" type="text/html">
 <meta property="og:site_name" content="Neetx website">
 <meta property="og:title" content="ELF symbols">
-<meta property="og:url" content="https://neetx.github.io/posts/elf-symbols/">
+<meta property="og:url" content="https://neetx.github.io/posts/ELF-symbols/">
 <meta property="og:description" content="Function and variable names are called symbols, they must be translated 
 into offsets and addresses at compilation time.
 The compiler exports symbolic information into the output object, that
@@ -107,6 +107,7 @@ called Elf32_Sym or Elf64_Sym</p>
     <span class="n">Elf64_Xword</span>    <span class="n">st_size</span><span class="p">;</span>           <span class="cm">/* Symbol size                    */</span>
 <span class="p">}</span> <span class="n">Elf64_Sym</span><span class="p">;</span>
 </pre>
+<hr>
 <h4>st_name</h4>
 <p>If <strong>st_name</strong> isn't unitialized the the symbol hasn't a name.</p>
 <h4>st_info</h4>

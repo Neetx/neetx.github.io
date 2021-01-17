@@ -30,9 +30,13 @@ My secondary interests ( may I call them hobby? :) ):
 - Functional Programming
 - Quantum Computing
 
-But my focus areas are **exploit development** and **reverse engineering**, in fact this website will be a collection of my works and experiments in these topics
+My focus areas are **exploit development** and **reverse engineering**, 
+in fact this website will be a collection of my works and experiments in
+these topics.
 
-______________________________________________________________
+Some publications will be my notes about somethings, in this case I will 
+indicate the references of the ideas and concepts.
+__________________________________________________________________________
 
 ## Past works:
 
