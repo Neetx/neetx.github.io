@@ -21,9 +21,8 @@
 <body class="hack dark center">
 
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
-    <div id="container"> 
-         
-    <header id="header"><h1 id="brand"><a href="../../" title="Neetx website" rel="home">
+    <div id="container">
+        <embed id="glider" src="../../images/logo.svg" type="image/svg+xml"></embed><header id="header"><h1 id="brand"><a href="../../" title="Neetx website" rel="home">
 
         <span id="blog-title">Neetx website</span>
     </a></h1>
@@ -68,6 +67,11 @@
     
         <footer id="footer"><p>Contents © 2021         <a href="mailto:neetx@protonmail.com">Neetx</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         </p>
             
-        </footer>
+        </footer><script>
+        document.getElementById('brand').insertBefore(
+                                        document.getElementById('glider'),
+                                        document.getElementById('brand').children[0]
+                                        )
+    </script>
 </body>
 </html>
