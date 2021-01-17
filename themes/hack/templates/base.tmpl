@@ -22,7 +22,8 @@ ${template_hooks['extra_head']()}
 % endif
 
 <a href="#content" class="sr-only sr-only-focusable">${messages("Skip to main content")}</a>
-    <div id="container"> 
+    <div id="container">
+        <embed id="glider" src="/images/logo.svg" type="image/svg+xml" /> 
          ${header.html_header()}
          <main id="content" class="center">
             <%block name="content"></%block>
@@ -34,5 +35,12 @@ ${template_hooks['extra_head']()}
     <%block name="extra_js"></%block>
     ${body_end}
     ${template_hooks['body_end']()}
+
+    <script>
+        document.getElementById('brand').insertBefore(
+                                        document.getElementById('glider'),
+                                        document.getElementById('brand').children[0]
+                                        )
+    </script>
 </body>
 </html>
