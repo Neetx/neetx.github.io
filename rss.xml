@@ -1,5 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Mon, 18 Jan 2021 09:31:01 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ELF symbols</title><link>https://neetx.github.io/posts/ELF-symbols/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;Function and variable names are called symbols, they must be translated 
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Fri, 22 Jan 2021 22:06:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Windows ASM hello world</title><link>https://neetx.github.io/posts/windows-asm-hello-world/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;I have several notes about exploit development in linux system but today
+I decided to start some test in windows OS, so like the first time on 
+linux I tried to study shellcoding.
+After some minutes I figured out that I missed a step: simple assembly and
+calling conventions exploration.
+So these are my first tests with code and tools &lt;/p&gt;
+&lt;hr&gt;
+&lt;h3&gt;With C function calls&lt;/h3&gt;
+&lt;h4&gt;Solution 1 (nasm + gcc)&lt;/h4&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;bits&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rel&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;segment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;"Hello world!"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0xd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0xa&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;segment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;text&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;global&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ExitProcess&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="nl"&gt;main&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;lea&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rcx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;xor&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;ExitProcess&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Assembling:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;nasm -f win64 hello.asm -o hello.obj&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Linking:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;gcc -o hello.exe hello.obj&lt;/span&gt;
+
+&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;hello.exe&lt;/span&gt;
+&lt;span class="go"&gt;Hello world!&lt;/span&gt;
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h4&gt;Solution 2 (nasm + link)&lt;/h4&gt;
+&lt;p&gt;Thanks to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://stackoverflow.com/questions/64413414/unresolved-external-symbol-printf-in-windows-x64-assembly-programming-with-nasm"&gt;stackoverflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.microsoft.com/en-us/cpp/porting/visual-cpp-change-history-2003-2015"&gt;microsoft docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;"The definitions of all of the printf and scanf functions have been moved
+inline into &lt;stdio.h&gt;, &lt;conio.h&gt;, and other CRT headers. This breaking 
+change leads to a linker error (LNK2019, unresolved external symbol) for
+any programs that declared these functions locally without including the 
+appropriate CRT headers.If possible, you should update the code to include
+the CRT headers (that is, add #include &lt;stdio.h&gt;) and the inline functions,
+but if you do not want to modify your code to include these header files, 
+an alternative solution is to add an additional library to your linker
+input, legacy_stdio_definitions.lib."&lt;/stdio.h&gt;&lt;/conio.h&gt;&lt;/stdio.h&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="n"&gt;bits&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rel&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;segment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;"Hello world!"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0xd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mh"&gt;0xa&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;segment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;text&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;global&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;ExitProcess&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_CRT_INIT&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="nl"&gt;main&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rbp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;_CRT_INIT&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="n"&gt;CRT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;initialization&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;lea&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rcx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;xor&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;ExitProcess&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Assembling: &lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;nasm -fwin64  hello.asm -o hello.obj &lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Linking:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;link hello2.obj /subsystem:console /entry:main /out:hello2.exe kernel32.lib legacy_stdio_definitions.lib  msvcrt.lib&lt;/span&gt;
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;With Win32API calls&lt;/h3&gt;
+&lt;p&gt;32-bit windows api uses stdcall calling convention, so the parameters are
+passed on the stack from right to left and the return value is stored into
+eax register.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;   &lt;span class="n"&gt;global&lt;/span&gt;  &lt;span class="n"&gt;go&lt;/span&gt;
+
+        &lt;span class="k"&gt;extern&lt;/span&gt;  &lt;span class="n"&gt;_ExitProcess&lt;/span&gt;&lt;span class="mi"&gt;@4&lt;/span&gt;
+        &lt;span class="k"&gt;extern&lt;/span&gt;  &lt;span class="n"&gt;_GetStdHandle&lt;/span&gt;&lt;span class="mi"&gt;@4&lt;/span&gt;
+        &lt;span class="k"&gt;extern&lt;/span&gt;  &lt;span class="n"&gt;_WriteConsoleA&lt;/span&gt;&lt;span class="mi"&gt;@20&lt;/span&gt;
+
+        &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;
+&lt;span class="nl"&gt;msg&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="n"&gt;db&lt;/span&gt;      &lt;span class="s"&gt;"Hello, World"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="nl"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;      &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="nl"&gt;written&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;db&lt;/span&gt;      &lt;span class="mi"&gt;0&lt;/span&gt;
+
+        &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+&lt;span class="nl"&gt;go&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GetStdHandle&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;-11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="mi"&gt;-11&lt;/span&gt;
+        &lt;span class="n"&gt;call&lt;/span&gt;    &lt;span class="n"&gt;_GetStdHandle&lt;/span&gt;&lt;span class="mi"&gt;@4&lt;/span&gt;
+        &lt;span class="n"&gt;mov&lt;/span&gt;     &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;eax&lt;/span&gt;
+
+        &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;WriteConsole&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="mi"&gt;13&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;written&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;written&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="mi"&gt;13&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;msg&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;call&lt;/span&gt;    &lt;span class="n"&gt;_WriteConsoleA&lt;/span&gt;&lt;span class="mi"&gt;@20&lt;/span&gt;
+
+        &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;ExitProcess&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;push&lt;/span&gt;    &lt;span class="n"&gt;dword&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="n"&gt;call&lt;/span&gt;    &lt;span class="n"&gt;_ExitProcess&lt;/span&gt;&lt;span class="mi"&gt;@4&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Assembling:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;nasm -fwin32 -o hello_win32.obj hello_win32.asm&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Linking:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;link  hello_win32.obj "C:\Program Files (x86)\Windows Kits\10\lib\10.0.18362.0\um\x86\kernel32.lib" /subsystem:console /entry:go /machine:x86&lt;/span&gt;
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;With win64API calls&lt;/h3&gt;
+&lt;p&gt;64-bit windows api uses fastcall calling convention, so the first four
+parameters are passed left to right into:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;rcx&lt;/li&gt;
+&lt;li&gt;rdx&lt;/li&gt;
+&lt;li&gt;r8&lt;/li&gt;
+&lt;li&gt;r9&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The caller must reserve space on the stack even for these parameters, and
+the stack must be aligned&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;global&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;GetStdHandle&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="n"&gt;extern&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;WriteFile&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;section&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;text&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;main&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rcx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;fffffff5h&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;GetStdHandle&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rcx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rax&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rdx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;NtlpBuffer&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;r8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;NtnNBytesToWrite&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;r9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;NtlpNBytesWritten&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;mov&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;dword&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;rsp + 32&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;00&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;call&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;WriteFile&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;add&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;rsp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;40&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;ExitProgram&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;xor&lt;/span&gt;&lt;span class="w"&gt;     &lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;eax&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;section&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;NtlpBuffer&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="s1"&gt;'Hello, World!'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;00&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;NtnNBytesToWrite&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;dq&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;eh&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;section&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bss&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;NtlpNBytesWritten&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;resd&lt;/span&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Assembling:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;nasm -f win64 test.asm&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Linking:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;gcc -s -o test.exe test.obj&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;or linking with:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="go"&gt;C:\Users\nobody\Desktop\assembly&amp;gt;link hello_win64.obj "C:\Program Files (x86)\Windows Kits\10\lib\10.0.18362.0\um\x64\kernel32.lib"  /subsystem:console /entry:main /LARGEADDRESSAWARE:NO /out:test.exe&lt;/span&gt;
+&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3&gt;Tools&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;link and gcc are included into VS C/C++ toolchain&lt;/li&gt;
+&lt;li&gt;[nasm] (https://nasm.us)&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt;</description><category>#assembler #linker</category><category>#assembly</category><category>#win32api</category><category>#win64api</category><category>#windows</category><guid>https://neetx.github.io/posts/windows-asm-hello-world/</guid><pubDate>Fri, 22 Jan 2021 21:35:07 GMT</pubDate></item><item><title>ELF symbols</title><link>https://neetx.github.io/posts/ELF-symbols/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;Function and variable names are called symbols, they must be translated 
 into offsets and addresses at compilation time.
 The compiler exports &lt;strong&gt;symbolic information&lt;/strong&gt; into the output object, that
 holds symbols and interfaces to them (local, external).&lt;/p&gt;
