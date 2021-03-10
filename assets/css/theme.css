@@ -32,6 +32,7 @@
 
 :root {
 	--footer-height: 70px;
+	--background-code: rgba(29,29,29);
   }
 
 html, body {
@@ -357,6 +358,9 @@ pre.code, code {
 	white-space: pre;
 	word-wrap: normal;
 	overflow: auto;
+	background-color: var(--background-code);
+	padding:1em;
+	border: 1px solid grey;
 }
 
 /* SOURCE: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
