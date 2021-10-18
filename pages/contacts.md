@@ -17,6 +17,6 @@ Mastodon: [neetx privacytools](https://social.privacytools.io/web/accounts/8180)
 
 Github  : [Neetx](https://github.com/Neetx/)
 
-Twitter : [@TonioPasto](https://twitter.com/TonioPasto) 
+Twitter : [@neetx_](https://twitter.com/neetx_) 
 
 Linkedin: [Antonio Pastorelli](https://www.linkedin.com/in/antonio-pastorelli/)
