@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Wed, 10 Mar 2021 21:12:30 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Windows ASM hello world</title><link>https://neetx.github.io/posts/windows-asm-hello-world/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;I have several notes about exploit development in linux system but today
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website</title><link>https://neetx.github.io/</link><description>This is a collection of my studies and experiments</description><atom:link href="https://neetx.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Mon, 22 Nov 2021 19:33:40 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hidden services verification</title><link>https://neetx.github.io/posts/hidden-services-verification/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;It's important to verify onion addresses to avoid scam, phishing or fake
+information.
+Ideally you should disable Javascript while surfing the dark web (and
+often the clearnet too), but sometimes you need it and in this situation
+you have to think (your brain is your best anti-malware) about the trust
+you are going to put into this address.
+A bad actor could exploit you with Javascript code, so you need to 
+verify the hidden service is provided by a trusted source.&lt;/p&gt;
+&lt;p&gt;For example we can take Darknetlive hidden service and verify its onion
+address by its pgp key.&lt;/p&gt;
+&lt;p&gt;Darknetlive onion address:
+http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion&lt;/p&gt;
+&lt;p&gt;To get its pgp key you have to append /pgp.txt, sometimes you could 
+find the key published on a clearnet website or on another provider,
+please think if you can trust a provider/website.&lt;/p&gt;
+&lt;p&gt;Download:
+http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://neetx.github.io/images/pgp.jpg" class="center"&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;proxychains4 wget http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt
+&lt;/pre&gt;
+&lt;p&gt;Import (pgp.txt renamed darknetlive.txt):&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;gpg --import darknetlive_key.txt
+&lt;/pre&gt;
+&lt;p&gt;After that, append /mirror.txt to get a message, then you have to verify
+if this message is signed by the imported pgp key&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://neetx.github.io/images/mirrors.jpg" class="center"&gt;&lt;/p&gt;
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;proxychains4 wget http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/mirrors.txt
+&lt;/pre&gt;
+&lt;p&gt;Verification (renamed mirror.txt):&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;gpg --verify darknetlive_mirrors.txt
+&lt;/pre&gt;
+&lt;p&gt;You should see an output similar to this&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://neetx.github.io/images/output.jpg" class="center"&gt;&lt;/p&gt;
+&lt;p&gt;You also have to check the mirrors, make sure the address you are on
+matches one of them.&lt;/p&gt;
+&lt;p&gt;Also with a successful output you will read:
+"This key is not certified with a trusted signature!"&lt;/p&gt;
+&lt;p&gt;This happens because we downloaded the .txt file manually and there
+isn't a referee or a certification authority&lt;/p&gt;&lt;/div&gt;</description><category>#hiddenservice</category><category>#tor</category><guid>https://neetx.github.io/posts/hidden-services-verification/</guid><pubDate>Mon, 22 Nov 2021 18:57:51 GMT</pubDate></item><item><title>Windows ASM hello world</title><link>https://neetx.github.io/posts/windows-asm-hello-world/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;I have several notes about exploit development in linux system but today
 I decided to start some test in windows OS, so like the first time on 
 linux I tried to study shellcoding.
 After some minutes I figured out that I missed a step: simple assembly and

@@ -34,6 +34,7 @@
 <li><a href="../">Home</a></li>
                 <li><a href="../categories/cat_exploit-development/">Exploit Development</a></li>
                 <li><a href="../categories/cat_reverse-engineering">Reverse Engineering</a></li>
+                <li><a href="../categories/cat_operational-security">Operational Security</a></li>
                 <li><a href="../categories">Categories</a></li>
                 <li><a href="../contacts/index.html">Contacts</a></li>
                 <li><a href="../rss.xml">RSS feed</a></li>
@@ -43,7 +44,61 @@
     
     
     </ul></nav></header><main id="content" class="center"><div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="windows-asm-hello-world/" class="u-url">Windows ASM hello world</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="hidden-services-verification/" class="u-url">Hidden services verification</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Neetx
+            </span></p>
+            <p class="dateline">
+            <a href="hidden-services-verification/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-11-22T19:57:51+01:00" itemprop="datePublished" title="2021-11-22 19:57">2021-11-22 19:57</time></a>
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <div>
+<p>It's important to verify onion addresses to avoid scam, phishing or fake
+information.
+Ideally you should disable Javascript while surfing the dark web (and
+often the clearnet too), but sometimes you need it and in this situation
+you have to think (your brain is your best anti-malware) about the trust
+you are going to put into this address.
+A bad actor could exploit you with Javascript code, so you need to 
+verify the hidden service is provided by a trusted source.</p>
+<p>For example we can take Darknetlive hidden service and verify its onion
+address by its pgp key.</p>
+<p>Darknetlive onion address:
+http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion</p>
+<p>To get its pgp key you have to append /pgp.txt, sometimes you could 
+find the key published on a clearnet website or on another provider,
+please think if you can trust a provider/website.</p>
+<p>Download:
+http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt</p>
+<p><img src="../images/pgp.jpg" class="center"></p>
+<pre class="code literal-block">proxychains4 wget http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt
+</pre>
+<p>Import (pgp.txt renamed darknetlive.txt):</p>
+<pre class="code literal-block">gpg --import darknetlive_key.txt
+</pre>
+<p>After that, append /mirror.txt to get a message, then you have to verify
+if this message is signed by the imported pgp key</p>
+<p><img src="../images/mirrors.jpg" class="center"></p>
+<p>Download:</p>
+<pre class="code literal-block">proxychains4 wget http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/mirrors.txt
+</pre>
+<p>Verification (renamed mirror.txt):</p>
+<pre class="code literal-block">gpg --verify darknetlive_mirrors.txt
+</pre>
+<p>You should see an output similar to this</p>
+<p><img src="../images/output.jpg" class="center"></p>
+<p>You also have to check the mirrors, make sure the address you are on
+matches one of them.</p>
+<p>Also with a successful output you will read:
+"This key is not certified with a trusted signature!"</p>
+<p>This happens because we downloaded the .txt file manually and there
+isn't a referee or a certification authority</p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="windows-asm-hello-world/" class="u-url">Windows ASM hello world</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Neetx

@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://neetx.github.io/</loc>
-  <lastmod>2021-01-16T11:56:00Z</lastmod>
+  <lastmod>2021-11-22T18:52:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/2021/</loc>
@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://neetx.github.io/archive.html</loc>
-  <lastmod>2021-03-10T21:12:00Z</lastmod>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/</loc>
-  <lastmod>2021-01-22T21:37:00Z</lastmod>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/assembler-linker/</loc>
@@ -34,12 +34,20 @@
   <lastmod>2021-01-14T23:28:00Z</lastmod>
  </url>
  <url>
+  <loc>https://neetx.github.io/categories/cat_operational-security/</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://neetx.github.io/categories/cat_reverse-engineering/</loc>
   <lastmod>2021-01-14T23:28:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/elf/</loc>
   <lastmod>2021-01-16T20:31:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/categories/hiddenservice/</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/categories/linux/</loc>
@@ -58,6 +66,10 @@
   <lastmod>2021-01-16T20:31:00Z</lastmod>
  </url>
  <url>
+  <loc>https://neetx.github.io/categories/tor/</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://neetx.github.io/categories/win32api/</loc>
   <lastmod>2021-01-22T21:37:00Z</lastmod>
  </url>
@@ -74,8 +86,12 @@
   <lastmod>2021-01-14T22:32:00Z</lastmod>
  </url>
  <url>
+  <loc>https://neetx.github.io/operational-security/</loc>
+  <lastmod>2021-11-22T18:52:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://neetx.github.io/posts/</loc>
-  <lastmod>2021-01-22T21:37:00Z</lastmod>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/posts/ELF-headers-sections-and-segments/</loc>
@@ -84,6 +100,10 @@
  <url>
   <loc>https://neetx.github.io/posts/ELF-symbols/</loc>
   <lastmod>2021-01-17T20:40:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://neetx.github.io/posts/hidden-services-verification/</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </url>
  <url>
   <loc>https://neetx.github.io/posts/windows-asm-hello-world/</loc>

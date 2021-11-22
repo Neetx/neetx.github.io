@@ -18,12 +18,20 @@
   <lastmod>2021-03-10T21:12:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://neetx.github.io/categories/cat_operational-security.xml</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://neetx.github.io/categories/cat_reverse-engineering.xml</loc>
   <lastmod>2021-03-10T21:12:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://neetx.github.io/categories/elf.xml</loc>
   <lastmod>2021-03-10T21:12:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://neetx.github.io/categories/hiddenservice.xml</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://neetx.github.io/categories/linux.xml</loc>
@@ -42,6 +50,10 @@
   <lastmod>2021-03-10T21:12:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://neetx.github.io/categories/tor.xml</loc>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://neetx.github.io/categories/win32api.xml</loc>
   <lastmod>2021-03-10T21:12:00Z</lastmod>
  </sitemap>
@@ -55,10 +67,10 @@
  </sitemap>
  <sitemap>
   <loc>https://neetx.github.io/rss.xml</loc>
-  <lastmod>2021-03-10T21:12:00Z</lastmod>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://neetx.github.io/sitemap.xml</loc>
-  <lastmod>2021-03-10T21:12:00Z</lastmod>
+  <lastmod>2021-11-22T19:21:00Z</lastmod>
  </sitemap>
 </sitemapindex>
