@@ -22,14 +22,18 @@ For example we can take Darknetlive hidden service and verify its onion
 address by its pgp key.
 
 Darknetlive onion address:
+```bash
 http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion
+```
 
 To get its pgp key you have to append /pgp.txt, sometimes you could 
 find the key published on a clearnet website or on another provider,
 please think if you can trust a provider/website.
 
 Download:
+```bash
 http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt
+```
 
 <img src="/images/pgp.jpg" class="center">
 

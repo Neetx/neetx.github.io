@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website (Posts about Operational Security)</title><link>https://neetx.github.io/</link><description></description><atom:link href="https://neetx.github.io/categories/cat_operational-security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Mon, 22 Nov 2021 19:33:40 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hidden services verification</title><link>https://neetx.github.io/posts/hidden-services-verification/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;It's important to verify onion addresses to avoid scam, phishing or fake
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Neetx website (Posts about Operational Security)</title><link>https://neetx.github.io/</link><description></description><atom:link href="https://neetx.github.io/categories/cat_operational-security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:neetx@protonmail.com"&gt;Neetx&lt;/a&gt; </copyright><lastBuildDate>Thu, 02 Dec 2021 11:05:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hidden services verification</title><link>https://neetx.github.io/posts/hidden-services-verification/</link><dc:creator>Neetx</dc:creator><description>&lt;div&gt;&lt;p&gt;It's important to verify onion addresses to avoid scam, phishing or fake
 information.
 Ideally you should disable Javascript while surfing the dark web (and
 often the clearnet too), but sometimes you need it and in this situation
@@ -9,13 +9,15 @@ A bad actor could exploit you with Javascript code, so you need to
 verify the hidden service is provided by a trusted source.&lt;/p&gt;
 &lt;p&gt;For example we can take Darknetlive hidden service and verify its onion
 address by its pgp key.&lt;/p&gt;
-&lt;p&gt;Darknetlive onion address:
-http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion&lt;/p&gt;
+&lt;p&gt;Darknetlive onion address:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion
+&lt;/pre&gt;
 &lt;p&gt;To get its pgp key you have to append /pgp.txt, sometimes you could 
 find the key published on a clearnet website or on another provider,
 please think if you can trust a provider/website.&lt;/p&gt;
-&lt;p&gt;Download:
-http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt&lt;/p&gt;
+&lt;p&gt;Download:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt
+&lt;/pre&gt;
 &lt;p&gt;&lt;img src="https://neetx.github.io/images/pgp.jpg" class="center"&gt;&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;proxychains4 wget http://darkzzx4avcsuofgfez5zq75cqc4mprjvfqywo45dfcaxrwqg6qrlfid.onion/pgp.txt
 &lt;/pre&gt;
