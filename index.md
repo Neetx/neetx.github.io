@@ -16,23 +16,19 @@ unknown@unknown$ whoami
 neetx
 ```
 
-I'm a Master degree student in computer security at the University of Bari "Aldo Moro".<br>
+I'am another freaky security researcher<br>
 
 My major interests:
 
-- Security (system, low level and hardware stuff)
-- Embedded systems and electronics
-- Machine Learning
+- Userspace / Kernelspace Exploitation
+- Operating System internals
+- Reverse engineering
+- Vulnerability research
 
-My secondary interests ( may I call them hobby? :) ):
+But I have a lot of hobbies too.. computer science is awesome!
 
-- Information theory and formal methods
-- Functional Programming
-- Quantum Computing
-
-My focus areas are **exploit development** and **reverse engineering**, 
-in fact this website will be a collection of my works and experiments in
-these topics.
+This website will be a very not exaustive collection of my personal
+works and experiments.
 
 Some publications will be my notes about somethings, in this case I will 
 indicate the references of the ideas and concepts.
@@ -40,7 +36,8 @@ __________________________________________________________________________
 
 ## Past works:
 
+- July 2022: Master's degree in computer security (University of Bari "Aldo Moro")<br>Thesis title: "Development tools and process of zero day exploits"
+
 - April 2019: Bachelor's degree in computer science (University of Bari "Aldo Moro")<br>Thesis title: "Secure communication protocol for CPS"
 
 <iframe class="center" width="560" height="315" src="https://www.youtube.com/embed/55jE_LcQR2c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
